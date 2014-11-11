@@ -14,10 +14,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Net;
 using Microsoft.Azure.Commands.StreamAnalytics.Models;
 using Microsoft.Azure.Commands.StreamAnalytics.Properties;
 using Microsoft.Azure.Management.StreamAnalytics;
 using Microsoft.Azure.Management.StreamAnalytics.Models;
+using Microsoft.WindowsAzure;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
@@ -106,6 +109,95 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
             }
 
             return jobs;
+        }
+
+        public virtual Job CreateOrUpdatePSJob(string resourceGroupName, string jobName, string rawJsonContent)
+        {
+            if (string.IsNullOrWhiteSpace(rawJsonContent))
+            {
+                throw new ArgumentNullException("rawJsonContent");
+            }
+
+            // If create failed, the current behavior is to throw
+            var response =
+                StreamAnalyticsManagementClient.Job.CreateOrUpdateWithRawJsonContent(
+                    resourceGroupName,
+                    jobName,
+                    new JobCreateOrUpdateWithRawJsonContentParameters() { Content = rawJsonContent });
+
+            return response.Job;
+        }
+
+        public virtual PSJob CreatePSJob(CreatePSJobParameters parameters)
+        {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException("parameters");
+            }
+
+            PSJob job = null;
+            Action createJob = () =>
+            {
+                job =
+                    new PSJob(CreateOrUpdatePSJob(parameters.ResourceGroupName,
+                        parameters.JobName,
+                        parameters.RawJsonContent))
+                    {
+                        ResourceGroupName = parameters.ResourceGroupName,
+                        JobName = parameters.JobName
+                    };
+            };
+
+            if (parameters.Force)
+            {
+                // If user decides to overwrite anyway, then there is no need to check if the linked service exists or not.
+                createJob();
+            }
+            else
+            {
+                bool jobExists = CheckJobExists(parameters.ResourceGroupName,
+                    parameters.JobName);
+
+                parameters.ConfirmAction(
+                        !jobExists,  // prompt only if the linked service exists
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            Resources.JobExists,
+                            parameters.JobName,
+                            parameters.ResourceGroupName),
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            Resources.JobCreating,
+                            parameters.JobName,
+                            parameters.ResourceGroupName),
+                        parameters.JobName,
+                        createJob);
+            }
+
+            return job;
+        }
+
+
+
+        private bool CheckJobExists(string resourceGroupName, string jobName)
+        {
+            try
+            {
+                PSJob job = GetJob(resourceGroupName, jobName, string.Empty);
+                return true;
+            }
+            catch (CloudException e)
+            {
+                //Get throws Exception message with NotFound Status
+                if (e.Response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }

@@ -13,7 +13,9 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Globalization;
 using System.Management.Automation;
+using Microsoft.Azure.Commands.StreamAnalytics.Properties;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 
@@ -59,27 +61,27 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
             base.WriteExceptionError(exception);
         }
 
-        //protected string ResolveResourceName(string rawJsonContent, string nameFromCmdletContext, string resourceType)
-        //{
-        //    string nameExtractedFromJson = StreamAnalyticsCommonUtilities.ExtractNameFromJson(rawJsonContent, resourceType);
+        protected string ResolveResourceName(string rawJsonContent, string nameFromCmdletContext, string resourceType)
+        {
+            string nameExtractedFromJson = StreamAnalyticsCommonUtilities.ExtractNameFromJson(rawJsonContent, resourceType);
 
-        //    // Read the name from the JSON content if user didn't provide name with -Name parameter
-        //    string resolvedResourceName = string.IsNullOrWhiteSpace(nameFromCmdletContext)
-        //        ? nameExtractedFromJson
-        //        : nameFromCmdletContext;
+            // Read the name from the JSON content if user didn't provide name with -Name parameter
+            string resolvedResourceName = string.IsNullOrWhiteSpace(nameFromCmdletContext)
+                ? nameExtractedFromJson
+                : nameFromCmdletContext;
 
-        //    // Show a message that if names do not match, name specified with -Name parameter will be used.
-        //    if (string.Compare(resolvedResourceName, nameExtractedFromJson, StringComparison.OrdinalIgnoreCase) != 0)
-        //    {
-        //        WriteVerbose(string.Format(
-        //            CultureInfo.InvariantCulture,
-        //            Resources.ExtractedNameFromJsonMismatchWarning,
-        //            resourceType,
-        //            resolvedResourceName,
-        //            nameExtractedFromJson));
-        //    }
+            // Show a message that if names do not match, name specified with -Name parameter will be used.
+            if (string.Compare(resolvedResourceName, nameExtractedFromJson, StringComparison.OrdinalIgnoreCase) != 0)
+            {
+                WriteVerbose(string.Format(
+                    CultureInfo.InvariantCulture,
+                    Resources.ExtractedNameFromJsonMismatchWarning,
+                    resourceType,
+                    resolvedResourceName,
+                    nameExtractedFromJson));
+            }
 
-        //    return resolvedResourceName;
-        //}
+            return resolvedResourceName;
+        }
     }
 }

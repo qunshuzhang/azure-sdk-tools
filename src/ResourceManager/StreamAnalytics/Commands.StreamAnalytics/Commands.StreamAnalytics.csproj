@@ -82,6 +82,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\WindowsAzure.Storage.4.0.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Commands.Common.Storage\Commands.Common.Storage.csproj">
@@ -101,6 +105,9 @@
     <Compile Include="CloudExceptionExtensions.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Job\GetAzureStreamAnalyticsJobCommand.cs" />
+    <Compile Include="Job\NewAzureStreamAnalyticsJobCommand.cs" />
+    <Compile Include="Models\CreatePSJobParameters.cs" />
+    <Compile Include="Models\JobParametersBase.cs" />
     <Compile Include="Models\PSJob.cs" />
     <Compile Include="Models\StreamAnalyticsClient.cs" />
     <Compile Include="Models\StreamAnalyticsClient.Jobs.cs" />
@@ -112,6 +119,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StreamAnalyticsBaseCmdlet.cs" />
+    <Compile Include="StreamAnalyticsCommonUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Microsoft.Azure.Commands.StreamAnalytics.format.ps1xml">

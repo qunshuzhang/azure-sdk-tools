@@ -61,6 +61,15 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} name provided using -Name switch: &apos;{1}&apos; in cmdlet doesn&apos;t match with {0} name: &apos;{2}&apos; in JSON file. {0} will be created with name: &apos;{1}&apos;.
+        /// </summary>
+        internal static string ExtractedNameFromJsonMismatchWarning {
+            get {
+                return ResourceManager.GetString("ExtractedNameFromJsonMismatchWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HTTP Status Code: {0}
         ///Error Code: {1}
         ///Error Message: {2}
@@ -70,6 +79,35 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Properties {
         internal static string FormattedCloudExceptionMessageTemplate {
             get {
                 return ResourceManager.GetString("FormattedCloudExceptionMessageTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to parse input JSON file. {0}. Please correct the error in the JSON file and re-deploy {1} again..
+        /// </summary>
+        internal static string InvalidJson {
+            get {
+                return ResourceManager.GetString("InvalidJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating job &apos;{0}&apos; in resource group &apos;{1}&apos;..
+        /// </summary>
+        internal static string JobCreating {
+            get {
+                return ResourceManager.GetString("JobCreating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A job with the name {0} in the resource group {1} already exists. 
+        ///Continuing execution may overwrite the exisiting one. 
+        ///Are you sure you want to continue?.
+        /// </summary>
+        internal static string JobExists {
+            get {
+                return ResourceManager.GetString("JobExists", resourceCulture);
             }
         }
         

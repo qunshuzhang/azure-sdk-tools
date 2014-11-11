@@ -25,7 +25,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = false, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
         [ValidateNotNullOrEmpty]
-        public string JobName { get; set; }
+        public string Name { get; set; }
 
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The properties of the azure stream analytics job that need to be expanded.")]
@@ -47,7 +47,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
 
             JobFilterOptions filterOptions = new JobFilterOptions()
             {
-                JobName = JobName,
+                JobName = Name,
                 ResourceGroupName = ResourceGroupName,
                 PropertiesToExpand = PropertiesToExpand
             };
@@ -56,7 +56,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
 
             if (jobs != null)
             {
-                if (jobs.Count == 1 && JobName != null)
+                if (jobs.Count == 1 && Name != null)
                 {
                     WriteObject(jobs[0]);
                 }
