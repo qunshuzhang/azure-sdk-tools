@@ -105,4 +105,7 @@ Error Message: {2}
 Request Id: {3}
 Timestamp (Utc):{4}</value>
   </data>
+  <data name="ResourceGroupNameCannotBeEmpty" xml:space="preserve">
+    <value>Resource group name cannot be null.</value>
+  </data>
 </root>

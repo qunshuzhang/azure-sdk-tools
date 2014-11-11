@@ -20,21 +20,21 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
 {
     public class PSJob
     {
-        private JobRequest jobRequest;
+        private Job job;
 
         public PSJob()
         {
-            jobRequest = new JobRequest();
+            job = new Job();
         }
 
-        public PSJob(JobRequest jobRequest)
+        public PSJob(Job job)
         {
-            if (jobRequest == null)
+            if (job == null)
             {
-                throw new ArgumentNullException("jobRequest");
+                throw new ArgumentNullException("job");
             }
 
-            this.jobRequest = jobRequest;
+            this.job = job;
         }
 
         public string JobName { get; set; }
@@ -45,11 +45,11 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
         {
             get
             {
-                return jobRequest.Location;
+                return job.Location;
             }
             set
             {
-                jobRequest.Location = value;
+                job.Location = value;
             }
         }
 
@@ -57,23 +57,23 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
         {
             get
             {
-                return jobRequest.Tags;
+                return job.Tags;
             }
             set
             {
-                jobRequest.Tags = value;
+                job.Tags = value;
             }
         }
 
-        public JobRequestProperties Properties
+        public JobProperties Properties
         {
             get
             {
-                return jobRequest.Properties;
+                return job.Properties;
             }
             set
             {
-                jobRequest.Properties = value;
+                job.Properties = value;
             }
         }
     }

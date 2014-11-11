@@ -18,6 +18,6 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
 {
     internal static class Constants
     {
-        public const string StreamAnalytics = "AzureStreamAnalytics";
+        public const string StreamAnalyticsJob = "AzureStreamAnalyticsJob";
     }
 }

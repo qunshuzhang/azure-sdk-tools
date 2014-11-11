@@ -72,5 +72,14 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Properties {
                 return ResourceManager.GetString("FormattedCloudExceptionMessageTemplate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resource group name cannot be null..
+        /// </summary>
+        internal static string ResourceGroupNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("ResourceGroupNameCannotBeEmpty", resourceCulture);
+            }
+        }
     }
 }

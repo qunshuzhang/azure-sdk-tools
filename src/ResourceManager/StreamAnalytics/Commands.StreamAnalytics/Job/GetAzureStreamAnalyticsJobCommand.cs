@@ -19,14 +19,9 @@ using Microsoft.Azure.Commands.StreamAnalytics.Models;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
-    [Cmdlet(VerbsCommon.Get, Constants.StreamAnalytics), OutputType(typeof(List<PSJob>), typeof(PSJob))]
+    [Cmdlet(VerbsCommon.Get, Constants.StreamAnalyticsJob), OutputType(typeof(List<PSJob>), typeof(PSJob))]
     public class GetAzureStreamAnalyticsJobCommand : StreamAnalyticsBaseCmdlet
     {
-        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 0, Mandatory = false, ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The azure resource group name.")]
-        [ValidateNotNullOrEmpty]
-        public string ResourceGroupName { get; set; }
-
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = false, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
         [ValidateNotNullOrEmpty]
@@ -45,14 +40,9 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
                 throw new PSArgumentNullException("ResourceGroupName");
             }
 
-            if (JobName != null && string.IsNullOrWhiteSpace(JobName))
+            if (PropertiesToExpand == null || string.IsNullOrWhiteSpace(PropertiesToExpand))
             {
-                throw new PSArgumentNullException("JobName");
-            }
-
-            if (PropertiesToExpand != null && string.IsNullOrWhiteSpace(PropertiesToExpand))
-            {
-                throw new PSArgumentNullException("PropertiesToExpand");
+                PropertiesToExpand = string.Empty;
             }
 
             JobFilterOptions filterOptions = new JobFilterOptions()
@@ -62,11 +52,11 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
                 PropertiesToExpand = PropertiesToExpand
             };
 
-            List<PSJob> jobs = StreamAnalyticsClient.FilterPSDataFactories(filterOptions);
+            List<PSJob> jobs = StreamAnalyticsClient.FilterPSJobs(filterOptions);
 
             if (jobs != null)
             {
-                if (jobs.Count == 1 && Name != null)
+                if (jobs.Count == 1 && JobName != null)
                 {
                     WriteObject(jobs[0]);
                 }
