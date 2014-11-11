@@ -40,15 +40,16 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         {
             List<PSJob> jobs = new List<PSJob>();
             JobListParameters parameters = new JobListParameters(propertiesToExpand);
-            var response = StreamAnalyticsManagementClient.Job.ListJobsInResourceGroupAsync(resourceGroupName, parameters);
+            var response = StreamAnalyticsManagementClient.Job.ListJobsInResourceGroup(resourceGroupName, parameters);
 
-            if (response != null && response.Result.Value != null)
+            if (response != null && response.Value != null)
             {
-                foreach (var job in response.Result.Value)
+                foreach (var job in response.Value)
                 {
                     jobs.Add(new PSJob(job)
                         {
-                            ResourceGroupName = resourceGroupName
+                            ResourceGroupName = resourceGroupName,
+                            JobName = job.Name
                         });
                 }
             }
@@ -60,13 +61,16 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         {
             List<PSJob> jobs = new List<PSJob>();
             JobListParameters parameters = new JobListParameters(propertiesToExpand);
-            var response = StreamAnalyticsManagementClient.Job.ListJobsInSubscriptionAsync(parameters);
+            var response = StreamAnalyticsManagementClient.Job.ListJobsInSubscription(parameters);
 
-            if (response != null && response.Result.Value != null)
+            if (response != null && response.Value != null)
             {
-                foreach (var job in response.Result.Value)
+                foreach (var job in response.Value)
                 {
-                    jobs.Add(new PSJob(job));
+                    jobs.Add(new PSJob(job)
+                        {
+                            JobName = job.Name
+                        });
                 }
             }
 
