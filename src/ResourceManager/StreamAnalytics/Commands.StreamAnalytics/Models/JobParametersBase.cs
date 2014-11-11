@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------------------------
 
 
-namespace Microsoft.Azure.Commands.StreamAnalytics
+namespace Microsoft.Azure.Commands.StreamAnalytics.Models
 {
     public class JobParametersBase
     {

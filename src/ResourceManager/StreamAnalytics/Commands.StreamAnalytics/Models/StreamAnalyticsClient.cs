@@ -17,7 +17,7 @@ using Microsoft.Azure.Management.StreamAnalytics;
 using Microsoft.WindowsAzure.Commands.Common;
 using Microsoft.WindowsAzure.Commands.Common.Models;
 
-namespace Microsoft.Azure.Commands.StreamAnalytics
+namespace Microsoft.Azure.Commands.StreamAnalytics.Models
 {
     public partial class StreamAnalyticsClient
     {

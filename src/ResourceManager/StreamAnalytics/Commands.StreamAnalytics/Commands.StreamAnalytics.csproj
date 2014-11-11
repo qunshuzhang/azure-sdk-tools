@@ -107,6 +107,7 @@
     <Compile Include="Job\GetAzureStreamAnalyticsJobCommand.cs" />
     <Compile Include="Job\NewAzureStreamAnalyticsJobCommand.cs" />
     <Compile Include="Job\StartAzureStreamAnalyticsJobCommand.cs" />
+    <Compile Include="Job\StopAzureStreamAnalyticsJobCommand.cs" />
     <Compile Include="Models\CreatePSJobParameter.cs" />
     <Compile Include="Models\JobParametersBase.cs" />
     <Compile Include="Models\PSJob.cs" />

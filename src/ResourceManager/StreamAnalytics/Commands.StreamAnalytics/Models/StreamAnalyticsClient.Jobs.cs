@@ -16,13 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
-using Microsoft.Azure.Commands.StreamAnalytics.Models;
 using Microsoft.Azure.Commands.StreamAnalytics.Properties;
 using Microsoft.Azure.Management.StreamAnalytics;
 using Microsoft.Azure.Management.StreamAnalytics.Models;
 using Microsoft.WindowsAzure;
 
-namespace Microsoft.Azure.Commands.StreamAnalytics
+namespace Microsoft.Azure.Commands.StreamAnalytics.Models
 {
     public partial class StreamAnalyticsClient
     {
@@ -192,6 +191,40 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
             }
 
             return StartPSJob(parameter.ResourceGroupName, parameter.JobName);
+        }
+
+        public virtual HttpStatusCode StopPSJob(string resourceGroupName, string jobName)
+        {
+            OperationResponse response = StreamAnalyticsManagementClient.Job.Stop(resourceGroupName, jobName);
+
+            return response.StatusCode;
+        }
+
+        public virtual HttpStatusCode StopPSJob(JobParametersBase parameter)
+        {
+            if (parameter == null)
+            {
+                throw new ArgumentNullException("parameter");
+            }
+
+            return StopPSJob(parameter.ResourceGroupName, parameter.JobName);
+        }
+
+        public virtual HttpStatusCode RemovePSJob(string resourceGroupName, string jobName)
+        {
+            OperationResponse response = StreamAnalyticsManagementClient.Job.Delete(resourceGroupName, jobName);
+
+            return response.StatusCode;
+        }
+
+        public virtual HttpStatusCode RemovePSJob(JobParametersBase parameter)
+        {
+            if (parameter == null)
+            {
+                throw new ArgumentNullException("parameter");
+            }
+
+            return RemovePSJob(parameter.ResourceGroupName, parameter.JobName);
         }
 
         private bool CheckJobExists(string resourceGroupName, string jobName)

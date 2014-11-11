@@ -21,8 +21,8 @@ using Microsoft.Azure.Commands.StreamAnalytics.Properties;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
-    [Cmdlet(VerbsLifecycle.Start, Constants.StreamAnalyticsJob)]
-    public class StartAzureStreamAnalyticsJobCommand : StreamAnalyticsBaseCmdlet
+    [Cmdlet(VerbsLifecycle.Stop, Constants.StreamAnalyticsJob)]
+    public class StopAzureStreamAnalyticsJobCommand : StreamAnalyticsBaseCmdlet
     {
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
@@ -38,13 +38,13 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
             }
 
             JobParametersBase parameter = new JobParametersBase()
-                {
-                    ResourceGroupName = ResourceGroupName,
-                    JobName = Name
-                };
+            {
+                ResourceGroupName = ResourceGroupName,
+                JobName = Name
+            };
 
             // TODO: change to async call
-            HttpStatusCode statusCode = StreamAnalyticsClient.StartPSJob(parameter);
+            HttpStatusCode statusCode = StreamAnalyticsClient.StopPSJob(parameter);
             if (statusCode == HttpStatusCode.NoContent)
             {
                 WriteWarning(string.Format(CultureInfo.InvariantCulture, Resources.JobNotFound, Name, ResourceGroupName));
