@@ -128,56 +128,71 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
             return response.Job;
         }
 
-        public virtual PSJob CreatePSJob(CreatePSJobParameters parameters)
+        public virtual PSJob CreatePSJob(CreatePSJobParameter parameter)
         {
-            if (parameters == null)
+            if (parameter == null)
             {
-                throw new ArgumentNullException("parameters");
+                throw new ArgumentNullException("parameter");
             }
 
             PSJob job = null;
             Action createJob = () =>
             {
                 job =
-                    new PSJob(CreateOrUpdatePSJob(parameters.ResourceGroupName,
-                        parameters.JobName,
-                        parameters.RawJsonContent))
+                    new PSJob(CreateOrUpdatePSJob(parameter.ResourceGroupName,
+                        parameter.JobName,
+                        parameter.RawJsonContent))
                     {
-                        ResourceGroupName = parameters.ResourceGroupName,
-                        JobName = parameters.JobName
+                        ResourceGroupName = parameter.ResourceGroupName,
+                        JobName = parameter.JobName
                     };
             };
 
-            if (parameters.Force)
+            if (parameter.Force)
             {
                 // If user decides to overwrite anyway, then there is no need to check if the linked service exists or not.
                 createJob();
             }
             else
             {
-                bool jobExists = CheckJobExists(parameters.ResourceGroupName,
-                    parameters.JobName);
+                bool jobExists = CheckJobExists(parameter.ResourceGroupName,
+                    parameter.JobName);
 
-                parameters.ConfirmAction(
+                parameter.ConfirmAction(
                         !jobExists,  // prompt only if the linked service exists
                         string.Format(
                             CultureInfo.InvariantCulture,
                             Resources.JobExists,
-                            parameters.JobName,
-                            parameters.ResourceGroupName),
+                            parameter.JobName,
+                            parameter.ResourceGroupName),
                         string.Format(
                             CultureInfo.InvariantCulture,
                             Resources.JobCreating,
-                            parameters.JobName,
-                            parameters.ResourceGroupName),
-                        parameters.JobName,
+                            parameter.JobName,
+                            parameter.ResourceGroupName),
+                        parameter.JobName,
                         createJob);
             }
 
             return job;
         }
 
+        public virtual HttpStatusCode StartPSJob(string resourceGroupName, string jobName)
+        {
+            OperationResponse response = StreamAnalyticsManagementClient.Job.Start(resourceGroupName, jobName);
 
+            return response.StatusCode;
+        }
+
+        public virtual HttpStatusCode StartPSJob(JobParametersBase parameter)
+        {
+            if (parameter == null)
+            {
+                throw new ArgumentNullException("parameter");
+            }
+
+            return StartPSJob(parameter.ResourceGroupName, parameter.JobName);
+        }
 
         private bool CheckJobExists(string resourceGroupName, string jobName)
         {

@@ -17,7 +17,7 @@ using System.Collections;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
-    public class CreatePSJobParameters : JobParametersBase
+    public class CreatePSJobParameter : JobParametersBase
     {
         public string RawJsonContent { get; set; }
 

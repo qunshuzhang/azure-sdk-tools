@@ -112,6 +112,15 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Job &apos;{0}&apos; does not exist in the resource group &apos;{1}&apos;..
+        /// </summary>
+        internal static string JobNotFound {
+            get {
+                return ResourceManager.GetString("JobNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resource group name cannot be null..
         /// </summary>
         internal static string ResourceGroupNameCannotBeEmpty {

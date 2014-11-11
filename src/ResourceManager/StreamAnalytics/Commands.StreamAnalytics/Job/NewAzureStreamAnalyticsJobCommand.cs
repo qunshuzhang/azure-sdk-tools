@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
 
             Name = ResolveResourceName(rawJsonContent, Name, "Job");
 
-            CreatePSJobParameters parameters = new CreatePSJobParameters()
+            CreatePSJobParameter parameter = new CreatePSJobParameter()
             {
                 ResourceGroupName = ResourceGroupName,
                 JobName = Name,
@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
                 ConfirmAction = ConfirmAction
             };
 
-            WriteObject(StreamAnalyticsClient.CreatePSJob(parameters));
+            WriteObject(StreamAnalyticsClient.CreatePSJob(parameter));
         }
     }
 }

@@ -122,4 +122,7 @@ Are you sure you want to continue?</value>
   <data name="JobCreating" xml:space="preserve">
     <value>Creating job '{0}' in resource group '{1}'.</value>
   </data>
+  <data name="JobNotFound" xml:space="preserve">
+    <value>Job '{0}' does not exist in the resource group '{1}'.</value>
+  </data>
 </root>
