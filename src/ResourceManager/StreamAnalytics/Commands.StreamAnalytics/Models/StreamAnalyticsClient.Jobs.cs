@@ -158,7 +158,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
                     parameter.JobName);
 
                 parameter.ConfirmAction(
-                        !jobExists,  // prompt only if the linked service exists
+                        !jobExists,
                         string.Format(
                             CultureInfo.InvariantCulture,
                             Resources.JobExists,

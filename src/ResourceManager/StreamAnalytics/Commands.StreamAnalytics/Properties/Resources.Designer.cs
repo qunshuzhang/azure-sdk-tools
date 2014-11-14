@@ -83,6 +83,35 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating input &apos;{0}&apos; in stream analytics job {1} in resource group &apos;{2}&apos;..
+        /// </summary>
+        internal static string InputCreating {
+            get {
+                return ResourceManager.GetString("InputCreating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An input with the name {0} in the stream analytics job {1} in the resource group {2} already exists. 
+        ///Continuing execution may overwrite the exisiting one. 
+        ///Are you sure you want to continue?.
+        /// </summary>
+        internal static string InputExists {
+            get {
+                return ResourceManager.GetString("InputExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Input &apos;{0}&apos; does not exist in the stream analytics job {1} in the resource group &apos;{2}&apos;..
+        /// </summary>
+        internal static string InputNotFound {
+            get {
+                return ResourceManager.GetString("InputNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to parse input JSON file. {0}. Please correct the error in the JSON file and re-deploy {1} again..
         /// </summary>
         internal static string InvalidJson {
@@ -112,11 +141,49 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stream analytics job name cannot be null..
+        /// </summary>
+        internal static string JobNameCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("JobNameCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Job &apos;{0}&apos; does not exist in the resource group &apos;{1}&apos;..
         /// </summary>
         internal static string JobNotFound {
             get {
                 return ResourceManager.GetString("JobNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating output &apos;{0}&apos; in stream analytics job {1} in resource group &apos;{2}&apos;..
+        /// </summary>
+        internal static string OutputCreating {
+            get {
+                return ResourceManager.GetString("OutputCreating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An output with the name {0} in the stream analytics job {1} in the resource group {2} already exists. 
+        ///Continuing execution may overwrite the exisiting one. 
+        ///Are you sure you want to continue?.
+        /// </summary>
+        internal static string OutputExists {
+            get {
+                return ResourceManager.GetString("OutputExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output &apos;{0}&apos; does not exist in the stream analytics job {1} in the resource group &apos;{2}&apos;..
+        /// </summary>
+        internal static string OutputNotFound {
+            get {
+                return ResourceManager.GetString("OutputNotFound", resourceCulture);
             }
         }
         

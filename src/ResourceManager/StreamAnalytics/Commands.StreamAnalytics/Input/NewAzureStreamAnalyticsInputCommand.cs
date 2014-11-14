@@ -19,15 +19,20 @@ using Microsoft.WindowsAzure.Commands.Utilities.Common;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
-    [Cmdlet(VerbsCommon.New, Constants.StreamAnalyticsJob), OutputType(typeof(PSJob))]
-    public class NewAzureStreamAnalyticsJobCommand : StreamAnalyticsBaseCmdlet
+    [Cmdlet(VerbsCommon.New, Constants.StreamAnalyticsInput), OutputType(typeof(PSJob))]
+    public class NewAzureStreamAnalyticsInputCommand : StreamAnalyticsBaseCmdlet
     {
-        [Parameter(Position = 1, Mandatory = false, ValueFromPipelineByPropertyName = true,
+        [Parameter(Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The stream analytics job name.")]
+        [ValidateNotNullOrEmpty]
+        public string JobName { get; set; }
+
+        [Parameter(Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
+            HelpMessage = "The stream analytics input name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Position = 2, Mandatory = true, HelpMessage = "The stream analytics job JSON file path.")]
+        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The stream analytics input JSON file path.")]
         [ValidateNotNullOrEmpty]
         public string File { get; set; }
 
@@ -39,18 +44,19 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         {
             string rawJsonContent = StreamAnalyticsClient.ReadJsonFileContent(this.TryResolvePath(File));
 
-            Name = ResolveResourceName(rawJsonContent, Name, "Job");
+            Name = ResolveResourceName(rawJsonContent, Name, "Input");
 
-            CreatePSJobParameter parameter = new CreatePSJobParameter()
+            CreatePSInputParameter parameter = new CreatePSInputParameter
             {
                 ResourceGroupName = ResourceGroupName,
-                JobName = Name,
+                JobName = JobName,
+                InputName = Name,
                 RawJsonContent = rawJsonContent,
                 Force = Force.IsPresent,
                 ConfirmAction = ConfirmAction
             };
 
-            WriteObject(StreamAnalyticsClient.CreatePSJob(parameter));
+            WriteObject(StreamAnalyticsClient.CreatePSInput(parameter));
         }
     }
 }

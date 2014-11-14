@@ -104,6 +104,9 @@
   <ItemGroup>
     <Compile Include="CloudExceptionExtensions.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Input\GetAzureStreamAnalyticsInputCommand.cs" />
+    <Compile Include="Input\NewAzureStreamAnalyticsInputCommand.cs" />
+    <Compile Include="Input\RemoveAzureStreamAnalyticsInputCommand.cs" />
     <Compile Include="Job\GetAzureStreamAnalyticsJobCommand.cs" />
     <Compile Include="Job\NewAzureStreamAnalyticsJobCommand.cs" />
     <Compile Include="Job\RemoveAzureStreamAnalyticsJobCommand.cs">
@@ -111,10 +114,14 @@
     </Compile>
     <Compile Include="Job\StartAzureStreamAnalyticsJobCommand.cs" />
     <Compile Include="Job\StopAzureStreamAnalyticsJobCommand.cs" />
+    <Compile Include="Models\CreatePSInputParameter.cs" />
     <Compile Include="Models\CreatePSJobParameter.cs" />
+    <Compile Include="Models\InputFilterOptions.cs" />
     <Compile Include="Models\JobParametersBase.cs" />
+    <Compile Include="Models\PSInput.cs" />
     <Compile Include="Models\PSJob.cs" />
     <Compile Include="Models\StreamAnalyticsClient.cs" />
+    <Compile Include="Models\StreamAnalyticsClient.Inputs.cs" />
     <Compile Include="Models\StreamAnalyticsClient.Jobs.cs" />
     <Compile Include="Models\JobFilterOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,7 +146,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Input\" />
     <Folder Include="Output\" />
     <Folder Include="Subscription\" />
     <Folder Include="Transformation\" />
