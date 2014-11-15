@@ -195,5 +195,34 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Properties {
                 return ResourceManager.GetString("ResourceGroupNameCannotBeEmpty", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating transformation &apos;{0}&apos; in stream analytics job {1} in resource group &apos;{2}&apos;..
+        /// </summary>
+        internal static string TransformationCreating {
+            get {
+                return ResourceManager.GetString("TransformationCreating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An transformation with the name {0} in the stream analytics job {1} in the resource group {2} already exists. 
+        ///Continuing execution may overwrite the exisiting one. 
+        ///Are you sure you want to continue?.
+        /// </summary>
+        internal static string TransformationExists {
+            get {
+                return ResourceManager.GetString("TransformationExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transformation &apos;{0}&apos; does not exist in the stream analytics job {1} in the resource group &apos;{2}&apos;..
+        /// </summary>
+        internal static string TransformationNotFound {
+            get {
+                return ResourceManager.GetString("TransformationNotFound", resourceCulture);
+            }
+        }
     }
 }

@@ -132,6 +132,11 @@ Are you sure you want to continue?</value>
 Continuing execution may overwrite the exisiting one. 
 Are you sure you want to continue?</value>
   </data>
+  <data name="TransformationExists" xml:space="preserve">
+    <value>An transformation with the name {0} in the stream analytics job {1} in the resource group {2} already exists. 
+Continuing execution may overwrite the exisiting one. 
+Are you sure you want to continue?</value>
+  </data>
   <data name="JobCreating" xml:space="preserve">
     <value>Creating job '{0}' in resource group '{1}'.</value>
   </data>
@@ -141,6 +146,9 @@ Are you sure you want to continue?</value>
   <data name="OutputCreating" xml:space="preserve">
     <value>Creating output '{0}' in stream analytics job {1} in resource group '{2}'.</value>
   </data>
+  <data name="TransformationCreating" xml:space="preserve">
+    <value>Creating transformation '{0}' in stream analytics job {1} in resource group '{2}'.</value>
+  </data>
   <data name="JobNotFound" xml:space="preserve">
     <value>Job '{0}' does not exist in the resource group '{1}'.</value>
   </data>
@@ -149,5 +157,8 @@ Are you sure you want to continue?</value>
   </data>
   <data name="OutputNotFound" xml:space="preserve">
     <value>Output '{0}' does not exist in the stream analytics job {1} in the resource group '{2}'.</value>
+  </data>
+  <data name="TransformationNotFound" xml:space="preserve">
+    <value>Transformation '{0}' does not exist in the stream analytics job {1} in the resource group '{2}'.</value>
   </data>
 </root>
