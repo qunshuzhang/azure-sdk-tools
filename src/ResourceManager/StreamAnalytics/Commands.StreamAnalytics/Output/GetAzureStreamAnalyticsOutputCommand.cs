@@ -12,24 +12,23 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-using System.Globalization;
+using System.Collections.Generic;
 using System.Management.Automation;
-using System.Net;
 using System.Security.Permissions;
-using Microsoft.Azure.Commands.StreamAnalytics.Properties;
+using Microsoft.Azure.Commands.StreamAnalytics.Models;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
-    [Cmdlet(VerbsCommon.Remove, Constants.StreamAnalyticsInput)]
-    public class RemoveAzureStreamAnalyticsInputCommand : StreamAnalyticsResourceProviderBaseCmdlet
+    [Cmdlet(VerbsCommon.Get, Constants.StreamAnalyticsOutput), OutputType(typeof(List<PSOutput>), typeof(PSOutput))]
+    public class GetAzureStreamAnalyticsOutputCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
         [ValidateNotNullOrEmpty]
         public string JobName { get; set; }
 
-        [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The stream analytics input name.")]
+        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
+            HelpMessage = "The azure stream analytics output name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
@@ -46,20 +45,30 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
                 throw new PSArgumentNullException("JobName");
             }
 
-            if (Name != null && string.IsNullOrWhiteSpace(Name))
+            if (Name == null || string.IsNullOrWhiteSpace(Name))
             {
-                throw new PSArgumentNullException("Name");
+                Name = string.Empty;
             }
 
-            // TODO: change to async call
-            HttpStatusCode statusCode = StreamAnalyticsClient.RemovePSInput(ResourceGroupName, JobName, Name);
-            if (statusCode == HttpStatusCode.NoContent)
+            OutputFilterOptions filterOptions = new OutputFilterOptions()
             {
-                WriteWarning(string.Format(CultureInfo.InvariantCulture, Resources.InputNotFound, Name, JobName, ResourceGroupName));
-            }
-            else
+                Name = Name,
+                JobName = JobName,
+                ResourceGroupName = ResourceGroupName
+            };
+
+            List<PSOutput> outputs = StreamAnalyticsClient.FilterPSOutputs(filterOptions);
+
+            if (outputs != null)
             {
-                WriteObject(true);
+                if (outputs.Count == 1 && Name != null)
+                {
+                    WriteObject(outputs[0]);
+                }
+                else
+                {
+                    WriteObject(outputs, true);
+                }
             }
         }
     }

@@ -29,11 +29,6 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         protected const string ByStreamAnalyticsObject = "ByStreamAnalyticsObject";
         protected const string ByStreamAnalyticsName = "ByStreamAnalyticsName";
 
-        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 0, Mandatory = true, ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The resource group name.")]
-        [ValidateNotNullOrEmpty]
-        public string ResourceGroupName { get; set; }
-
         internal StreamAnalyticsClient StreamAnalyticsClient
         {
             get

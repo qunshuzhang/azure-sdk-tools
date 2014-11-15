@@ -20,8 +20,8 @@ using Microsoft.Azure.Commands.StreamAnalytics.Properties;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
-    [Cmdlet(VerbsCommon.Remove, Constants.StreamAnalyticsInput)]
-    public class RemoveAzureStreamAnalyticsInputCommand : StreamAnalyticsResourceProviderBaseCmdlet
+    [Cmdlet(VerbsCommon.Remove, Constants.StreamAnalyticsOutput)]
+    public class RemoveAzureStreamAnalyticsOutputCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
@@ -29,7 +29,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         public string JobName { get; set; }
 
         [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The stream analytics input name.")]
+            HelpMessage = "The stream analytics output name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
@@ -52,10 +52,10 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
             }
 
             // TODO: change to async call
-            HttpStatusCode statusCode = StreamAnalyticsClient.RemovePSInput(ResourceGroupName, JobName, Name);
+            HttpStatusCode statusCode = StreamAnalyticsClient.RemovePSOutput(ResourceGroupName, JobName, Name);
             if (statusCode == HttpStatusCode.NoContent)
             {
-                WriteWarning(string.Format(CultureInfo.InvariantCulture, Resources.InputNotFound, Name, JobName, ResourceGroupName));
+                WriteWarning(string.Format(CultureInfo.InvariantCulture, Resources.OutputNotFound, Name, JobName, ResourceGroupName));
             }
             else
             {

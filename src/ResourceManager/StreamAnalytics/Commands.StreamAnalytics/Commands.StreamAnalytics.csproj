@@ -116,14 +116,23 @@
     <Compile Include="Job\StopAzureStreamAnalyticsJobCommand.cs" />
     <Compile Include="Models\CreatePSInputParameter.cs" />
     <Compile Include="Models\CreatePSJobParameter.cs" />
+    <Compile Include="Models\CreatePSOutputParameter.cs" />
     <Compile Include="Models\InputFilterOptions.cs" />
     <Compile Include="Models\JobParametersBase.cs" />
+    <Compile Include="Models\OutputFilterOptions.cs" />
     <Compile Include="Models\PSInput.cs" />
     <Compile Include="Models\PSJob.cs" />
+    <Compile Include="Models\PSOutput.cs" />
+    <Compile Include="Models\PSQuota.cs" />
     <Compile Include="Models\StreamAnalyticsClient.cs" />
     <Compile Include="Models\StreamAnalyticsClient.Inputs.cs" />
     <Compile Include="Models\StreamAnalyticsClient.Jobs.cs" />
     <Compile Include="Models\JobFilterOptions.cs" />
+    <Compile Include="Models\StreamAnalyticsClient.Outputs.cs" />
+    <Compile Include="Models\StreamAnalyticsClient.SubscriptionQuotas.cs" />
+    <Compile Include="Output\GetAzureStreamAnalyticsOutputCommand.cs" />
+    <Compile Include="Output\NewAzureStreamAnalyticsOutputCommand.cs" />
+    <Compile Include="Output\RemoveAzureStreamAnalyticsOutputCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -132,6 +141,8 @@
     </Compile>
     <Compile Include="StreamAnalyticsBaseCmdlet.cs" />
     <Compile Include="StreamAnalyticsCommonUtilities.cs" />
+    <Compile Include="StreamAnalyticsResourceProviderBaseCmdlet.cs" />
+    <Compile Include="Subscription\GetAzureStreamAnalyticsQuotasCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Microsoft.Azure.Commands.StreamAnalytics.format.ps1xml">
@@ -146,8 +157,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Output\" />
-    <Folder Include="Subscription\" />
     <Folder Include="Transformation\" />
   </ItemGroup>
   <ItemGroup>

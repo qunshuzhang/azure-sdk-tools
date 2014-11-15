@@ -20,7 +20,7 @@ using Microsoft.Azure.Commands.StreamAnalytics.Models;
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
     [Cmdlet(VerbsCommon.Get, Constants.StreamAnalyticsInput), OutputType(typeof(List<PSInput>), typeof(PSInput))]
-    public class GetAzureStreamAnalyticsInputCommand : StreamAnalyticsBaseCmdlet
+    public class GetAzureStreamAnalyticsInputCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]

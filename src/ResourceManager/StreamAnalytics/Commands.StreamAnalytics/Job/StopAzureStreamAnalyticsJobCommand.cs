@@ -22,7 +22,7 @@ using Microsoft.Azure.Commands.StreamAnalytics.Properties;
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
     [Cmdlet(VerbsLifecycle.Stop, Constants.StreamAnalyticsJob)]
-    public class StopAzureStreamAnalyticsJobCommand : StreamAnalyticsBaseCmdlet
+    public class StopAzureStreamAnalyticsJobCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
         [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]

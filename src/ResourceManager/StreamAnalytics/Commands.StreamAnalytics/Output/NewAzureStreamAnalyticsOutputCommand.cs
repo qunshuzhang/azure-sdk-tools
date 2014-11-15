@@ -19,8 +19,8 @@ using Microsoft.WindowsAzure.Commands.Utilities.Common;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
 {
-    [Cmdlet(VerbsCommon.New, Constants.StreamAnalyticsInput), OutputType(typeof(PSInput))]
-    public class NewAzureStreamAnalyticsInputCommand : StreamAnalyticsResourceProviderBaseCmdlet
+    [Cmdlet(VerbsCommon.New, Constants.StreamAnalyticsOutput), OutputType(typeof(PSOutput))]
+    public class NewAzureStreamAnalyticsOutputCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
         [Parameter(Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The stream analytics job name.")]
@@ -28,11 +28,11 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         public string JobName { get; set; }
 
         [Parameter(Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The stream analytics input name.")]
+            HelpMessage = "The stream analytics output name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The stream analytics input JSON file path.")]
+        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The stream analytics output JSON file path.")]
         [ValidateNotNullOrEmpty]
         public string File { get; set; }
 
@@ -44,19 +44,19 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
         {
             string rawJsonContent = StreamAnalyticsClient.ReadJsonFileContent(this.TryResolvePath(File));
 
-            Name = ResolveResourceName(rawJsonContent, Name, "Input");
+            Name = ResolveResourceName(rawJsonContent, Name, "Output");
 
-            CreatePSInputParameter parameter = new CreatePSInputParameter
+            CreatePSOutputParameter parameter = new CreatePSOutputParameter
             {
                 ResourceGroupName = ResourceGroupName,
                 JobName = JobName,
-                InputName = Name,
+                OutputName = Name,
                 RawJsonContent = rawJsonContent,
                 Force = Force.IsPresent,
                 ConfirmAction = ConfirmAction
             };
 
-            WriteObject(StreamAnalyticsClient.CreatePSInput(parameter));
+            WriteObject(StreamAnalyticsClient.CreatePSOutput(parameter));
         }
     }
 }
