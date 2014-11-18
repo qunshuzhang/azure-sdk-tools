@@ -20,12 +20,12 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
     {
         public const string StreamAnalyticsJob = "AzureStreamAnalyticsJob";
 
-        public const string StreamAnalyticsInput = "StreamAnalyticsInput";
+        public const string StreamAnalyticsInput = "AzureStreamAnalyticsInput";
 
-        public const string StreamAnalyticsOutput = "StreamAnalyticsOutput";
+        public const string StreamAnalyticsOutput = "AzureStreamAnalyticsOutput";
 
-        public const string StreamAnalyticsTransformation = "StreamAnalyticsTransformation";
+        public const string StreamAnalyticsTransformation = "AzureStreamAnalyticsTransformation";
 
-        public const string StreamAnalyticsQuota = "StreamAnalyticsQuota";
+        public const string StreamAnalyticsQuota = "AzureStreamAnalyticsQuota";
     }
 }
