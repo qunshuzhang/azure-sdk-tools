@@ -23,12 +23,12 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
     [Cmdlet(VerbsCommon.Remove, Constants.StreamAnalyticsOutput)]
     public class RemoveAzureStreamAnalyticsOutputCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
-        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
         [ValidateNotNullOrEmpty]
         public string JobName { get; set; }
 
-        [Parameter(Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true,
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The stream analytics output name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }

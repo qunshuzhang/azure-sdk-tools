@@ -86,15 +86,15 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
                 throw new ArgumentNullException("filterOptions");
             }
 
-            if (string.IsNullOrWhiteSpace(filterOptions.ResourceGroupName))
-            {
-                throw new ArgumentException(Resources.ResourceGroupNameCannotBeEmpty);
-            }
-
             List<PSJob> jobs = new List<PSJob>();
 
             if (!string.IsNullOrWhiteSpace(filterOptions.JobName))
             {
+                if (string.IsNullOrWhiteSpace(filterOptions.ResourceGroupName))
+                {
+                    throw new ArgumentException(Resources.ResourceGroupNameCannotBeEmpty);
+                }
+
                 jobs.Add(GetJob(filterOptions.ResourceGroupName, filterOptions.JobName,
                     filterOptions.PropertiesToExpand));
             }
@@ -110,7 +110,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
             return jobs;
         }
 
-        public virtual Job CreateOrUpdatePSJob(string resourceGroupName, string jobName, string rawJsonContent)
+        public virtual PSJob CreateOrUpdatePSJob(string resourceGroupName, string jobName, string rawJsonContent)
         {
             if (string.IsNullOrWhiteSpace(rawJsonContent))
             {
@@ -124,7 +124,11 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
                     jobName,
                     new JobCreateOrUpdateWithRawJsonContentParameters() { Content = rawJsonContent });
 
-            return response.Job;
+            return new PSJob(response.Job)
+                {
+                    ResourceGroupName = resourceGroupName,
+                    JobName = jobName
+                };
         }
 
         public virtual PSJob CreatePSJob(CreatePSJobParameter parameter)
@@ -137,14 +141,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
             PSJob job = null;
             Action createJob = () =>
             {
-                job =
-                    new PSJob(CreateOrUpdatePSJob(parameter.ResourceGroupName,
-                        parameter.JobName,
-                        parameter.RawJsonContent))
-                    {
-                        ResourceGroupName = parameter.ResourceGroupName,
-                        JobName = parameter.JobName
-                    };
+                job = CreateOrUpdatePSJob(parameter.ResourceGroupName, parameter.JobName, parameter.RawJsonContent);
             };
 
             if (parameter.Force)
@@ -154,8 +151,7 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
             }
             else
             {
-                bool jobExists = CheckJobExists(parameter.ResourceGroupName,
-                    parameter.JobName);
+                bool jobExists = CheckJobExists(parameter.ResourceGroupName, parameter.JobName);
 
                 parameter.ConfirmAction(
                         !jobExists,

@@ -22,12 +22,12 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
     [Cmdlet(VerbsCommon.Get, Constants.StreamAnalyticsTransformation), OutputType(typeof(List<PSTransformation>), typeof(PSTransformation))]
     public class GetAzureStreamAnalyticsTransformationCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
-        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
         [ValidateNotNullOrEmpty]
         public string JobName { get; set; }
 
-        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true,
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 2, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics transformation name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }

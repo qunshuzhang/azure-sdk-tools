@@ -133,6 +133,7 @@
     <Compile Include="Models\StreamAnalyticsClient.Outputs.cs" />
     <Compile Include="Models\StreamAnalyticsClient.SubscriptionQuotas.cs" />
     <Compile Include="Models\StreamAnalyticsClient.Transformation.cs" />
+    <Compile Include="Models\StreamAnalyticsClientExtensions.cs" />
     <Compile Include="Output\GetAzureStreamAnalyticsOutputCommand.cs" />
     <Compile Include="Output\NewAzureStreamAnalyticsOutputCommand.cs" />
     <Compile Include="Output\RemoveAzureStreamAnalyticsOutputCommand.cs" />

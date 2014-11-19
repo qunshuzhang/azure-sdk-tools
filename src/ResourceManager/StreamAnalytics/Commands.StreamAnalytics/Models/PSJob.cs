@@ -53,6 +53,42 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
             }
         }
 
+        public DateTime? CreatedDate
+        {
+            get
+            {
+                return job.Properties.CreatedDate;
+            }
+            set
+            {
+                job.Properties.CreatedDate = value;
+            }
+        }
+
+        public string ProvisioningState
+        {
+            get
+            {
+                return job.Properties.ProvisioningState;
+            }
+            set
+            {
+                job.Properties.ProvisioningState = value;
+            }
+        }
+        
+        public string JobState
+        {
+            get
+            {
+                return job.Properties.JobState;
+            }
+            set
+            {
+                job.Properties.JobState = value;
+            }
+        }
+
         public IDictionary<string, string> Tags
         {
             get
@@ -75,6 +111,11 @@ namespace Microsoft.Azure.Commands.StreamAnalytics.Models
             {
                 job.Properties = value;
             }
+        }
+
+        public string PropertiesInJson
+        {
+            get { return job.Properties.ToFormattedString(); }
         }
     }
 }

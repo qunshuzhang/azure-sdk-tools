@@ -13,11 +13,13 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Management.Automation;
 using Microsoft.Azure.Commands.StreamAnalytics.Models;
 using Microsoft.Azure.Commands.StreamAnalytics.Properties;
 using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.Commands.Common;
 using Microsoft.WindowsAzure.Commands.Utilities.Common;
 
 namespace Microsoft.Azure.Commands.StreamAnalytics
@@ -26,8 +28,8 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
     {
         private StreamAnalyticsClient streamAnalyticsClient;
 
-        protected const string ByStreamAnalyticsObject = "ByStreamAnalyticsObject";
-        protected const string ByStreamAnalyticsName = "ByStreamAnalyticsName";
+        protected const string StreamAnalyticsObjectsList = "For a list of Stream Analytics Objects";
+        protected const string SingleStreamAnalyticsObject = "For a single stream analytics Object";
 
         internal StreamAnalyticsClient StreamAnalyticsClient
         {

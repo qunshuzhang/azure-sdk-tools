@@ -22,34 +22,44 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
     [Cmdlet(VerbsCommon.Get, Constants.StreamAnalyticsJob), OutputType(typeof(List<PSJob>), typeof(PSJob))]
     public class GetAzureStreamAnalyticsJobCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
-        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 1, Mandatory = false, ValueFromPipelineByPropertyName = true,
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The azure stream analytics job name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(ParameterSetName = ByStreamAnalyticsName, Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
-            HelpMessage = "The properties of the azure stream analytics job that need to be expanded.")]
-        [ValidateNotNullOrEmpty]
-        public string PropertiesToExpand { get; set; }
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
+            HelpMessage = "The switch to specify whether the job entity should be expanded.")]
+        [Parameter(ParameterSetName = StreamAnalyticsObjectsList, Position = 1, Mandatory = false, ValueFromPipelineByPropertyName = true,
+            HelpMessage = "The switch to specify whether the job entity should be expanded.")]
+        public SwitchParameter NoExpand { get; set; }
 
         [EnvironmentPermission(SecurityAction.Demand, Unrestricted = true)]
         public override void ExecuteCmdlet()
         {
-            if (ResourceGroupName != null && string.IsNullOrWhiteSpace(ResourceGroupName))
+            if (ParameterSetName == SingleStreamAnalyticsObject)
             {
-                throw new PSArgumentNullException("ResourceGroupName");
+                if (ResourceGroupName != null && string.IsNullOrWhiteSpace(ResourceGroupName))
+                {
+                    throw new PSArgumentNullException("ResourceGroupName");
+                }
+
+                if (Name != null && string.IsNullOrWhiteSpace(Name))
+                {
+                    throw new PSArgumentNullException("Name");
+                }
             }
 
-            if (PropertiesToExpand == null || string.IsNullOrWhiteSpace(PropertiesToExpand))
+            string propertiesToExpand = "inputs,transformation,outputs";
+            if (NoExpand.IsPresent)
             {
-                PropertiesToExpand = string.Empty;
+                propertiesToExpand = string.Empty;
             }
 
-            JobFilterOptions filterOptions = new JobFilterOptions()
+            JobFilterOptions filterOptions = new JobFilterOptions
             {
                 JobName = Name,
                 ResourceGroupName = ResourceGroupName,
-                PropertiesToExpand = PropertiesToExpand
+                PropertiesToExpand = propertiesToExpand
             };
 
             List<PSJob> jobs = StreamAnalyticsClient.FilterPSJobs(filterOptions);

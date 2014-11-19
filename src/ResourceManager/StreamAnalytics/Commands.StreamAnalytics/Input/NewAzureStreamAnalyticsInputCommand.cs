@@ -22,26 +22,41 @@ namespace Microsoft.Azure.Commands.StreamAnalytics
     [Cmdlet(VerbsCommon.New, Constants.StreamAnalyticsInput), OutputType(typeof(PSInput))]
     public class NewAzureStreamAnalyticsInputCommand : StreamAnalyticsResourceProviderBaseCmdlet
     {
-        [Parameter(Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 1, Mandatory = true, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The stream analytics job name.")]
         [ValidateNotNullOrEmpty]
         public string JobName { get; set; }
 
-        [Parameter(Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 2, Mandatory = false, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The stream analytics input name.")]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Position = 3, Mandatory = true, HelpMessage = "The stream analytics input JSON file path.")]
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Position = 3, Mandatory = true, HelpMessage = "The stream analytics input JSON file path.")]
         [ValidateNotNullOrEmpty]
         public string File { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = "Don't ask for confirmation.")]
+        [Parameter(ParameterSetName = SingleStreamAnalyticsObject, Mandatory = false, HelpMessage = "Don't ask for confirmation.")]
         public SwitchParameter Force { get; set; }
 
         [EnvironmentPermission(SecurityAction.Demand, Unrestricted = true)]
         public override void ExecuteCmdlet()
         {
+            if (ResourceGroupName != null && string.IsNullOrWhiteSpace(ResourceGroupName))
+            {
+                throw new PSArgumentNullException("ResourceGroupName");
+            }
+
+            if (JobName != null && string.IsNullOrWhiteSpace(JobName))
+            {
+                throw new PSArgumentNullException("JobName");
+            }
+
+            if (File != null && string.IsNullOrWhiteSpace(File))
+            {
+                throw new PSArgumentNullException("File");
+            }
+
             string rawJsonContent = StreamAnalyticsClient.ReadJsonFileContent(this.TryResolvePath(File));
 
             Name = ResolveResourceName(rawJsonContent, Name, "Input");
